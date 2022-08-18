@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 
 const useVote = () => {
-    const [country, setCountry] = useState("")
     const [timeRemaining, setTimeRemianing] = useState(10)
     const [isTimeRunning, setIsTimeRunning] = useState(false)
 
@@ -20,7 +19,7 @@ const useVote = () => {
         }
     }, [timeRemaining, isTimeRunning])
 
-    return { country, setCountry, timeRemaining, isTimeRunning, startVoting }
+    return { timeRemaining, isTimeRunning, startVoting }
 }
 
 export default useVote

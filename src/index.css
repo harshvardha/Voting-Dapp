@@ -11,7 +11,7 @@ body {
 
 .region-bar {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   column-gap: 100px;
   background-color: #ffe6e6;
@@ -21,6 +21,31 @@ body {
 
 .region-bar--title {
   color: #404040;
+  justify-self: center;
+}
+
+.region-bar--connect-wallet {
+  width: 100px;
+  height: 30px;
+  justify-self: end;
+  margin-right: 10px;
+  background-color: #3399ff;
+  border: 0px;
+  border-radius: 20px;
+  box-shadow: 0px 5px 5px #a6a6a6;
+  font-size: 15px;
+}
+
+.region-bar--connect-wallet:active {
+  box-shadow: inset 0px 1px 5px #a6a6a6;
+}
+
+.region-bar--account-address {
+  background-color: #3399ff;
+  padding: 5px;
+  border-radius: 20px;
+  text-align: center;
+  letter-spacing: 0.8px;
 }
 
 .dropdown-menu {

@@ -1,17 +1,11 @@
-import { useState } from "react"
+import { useContext } from "react"
+import { VotingContext } from "../context/VotingContext"
 import { data } from "../data"
 
-const Voting = ({ country, isTimeRunning, startVoting }) => {
-    const [voted, setVoted] = useState(false)
-    const leaderArray = data[country]
+const Voting = ({ isTimeRunning }) => {
+    const { rightToVote, voted, winner, vote, getWinner } = useContext(VotingContext)
 
-    const vote = () => {
-        if (!voted) {
-            setVoted(true)
-        }
-    }
-
-    const cardArray = leaderArray.map((leader) => {
+    const cardArray = data.map((leader) => {
         return (
             <div className="voting--leader-card" key={leader["id"]}>
                 <img src={leader["image-src"]} alt="" />
@@ -20,7 +14,7 @@ const Voting = ({ country, isTimeRunning, startVoting }) => {
                     type="button"
                     className="voting--leader-button"
                     onClick={vote}
-                    disabled={voted}
+                    disabled={!isTimeRunning || (rightToVote && voted)}
                 >
                     Vote
                 </button>
@@ -33,13 +27,6 @@ const Voting = ({ country, isTimeRunning, startVoting }) => {
             <div className="voting">
                 {cardArray}
             </div>
-            <button
-                className="voting--start-voting-button"
-                onClick={startVoting}
-                disabled={isTimeRunning || voted}
-            >
-                Start Voting
-            </button>
         </>
 
     )

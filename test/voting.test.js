@@ -49,4 +49,36 @@ describe("Voting Contract", function () {
             ).to.be.revertedWith("Only chairperson can give right to vote")
         })
     })
+
+    describe("Voting", function () {
+        it("voteCount of proposal should be equal to the total votes given to proposal", async function () {
+            const { votingContract, voter } = await loadFixture(deployVotingContractFixture)
+            await votingContract.giveRightToVote(voter.address)
+            await votingContract.connect(voter).vote(0)
+            const proposal = await votingContract.proposals(0)
+            expect(proposal.voteCount).to.equal(1)
+        })
+
+        it("vote function should revert if weight of voter is 0", async function () {
+            const { votingContract, voter } = await loadFixture(deployVotingContractFixture)
+            await expect(votingContract.connect(voter).vote(0)).to.be.revertedWith("You don't have right to vote")
+        })
+
+        it("vote function should revert if voter already voted", async function () {
+            const { votingContract, voter } = await loadFixture(deployVotingContractFixture)
+            await votingContract.giveRightToVote(voter.address)
+            await votingContract.connect(voter).vote(0)
+            await expect(votingContract.connect(voter).vote(1)).to.be.revertedWith("Already Voted")
+        })
+    })
+
+    describe("Winning proposal", function () {
+        it("winner should Narendra Modi", async function () {
+            const { votingContract, voter, names } = await loadFixture(deployVotingContractFixture)
+            await votingContract.giveRightToVote(voter.address)
+            await votingContract.connect(voter).vote(0)
+            const winnerName = await votingContract.winnerName()
+            expect(ethers.utils.parseBytes32String(winnerName)).to.equal(names[0])
+        })
+    })
 })

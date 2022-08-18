@@ -4,8 +4,6 @@ import useVote from "./hooks/useVote";
 
 function App() {
   const {
-    country,
-    setCountry,
     isTimeRunning,
     timeRemaining,
     startVoting
@@ -13,12 +11,10 @@ function App() {
 
   return (
     <div className="App">
-      <RegionBar timeRemaining={timeRemaining} />
-      {country !== "" ? <Voting
-        country={country}
+      <RegionBar timeRemaining={timeRemaining} startVoting={startVoting} />
+      <Voting
         isTimeRunning={isTimeRunning}
-        startVoting={startVoting}
-      /> : null}
+      />
     </div>
   );
 }
