@@ -6,7 +6,8 @@ function App() {
   const {
     isTimeRunning,
     timeRemaining,
-    startVoting
+    startVoting,
+    setWait
   } = useVote()
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <RegionBar timeRemaining={timeRemaining} startVoting={startVoting} />
       <Voting
         isTimeRunning={isTimeRunning}
+        setWait={setWait}
       />
     </div>
   );

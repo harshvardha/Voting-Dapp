@@ -2,8 +2,8 @@ import { useContext } from "react"
 import { VotingContext } from "../context/VotingContext"
 import { data } from "../data"
 
-const Voting = ({ isTimeRunning }) => {
-    const { rightToVote, voted, winner, vote, getWinner } = useContext(VotingContext)
+const Voting = ({ isTimeRunning, setWait }) => {
+    const { rightToVote, voted, winner, vote } = useContext(VotingContext)
 
     const cardArray = data.map((leader) => {
         return (
@@ -13,7 +13,7 @@ const Voting = ({ isTimeRunning }) => {
                 <button
                     type="button"
                     className="voting--leader-button"
-                    onClick={vote}
+                    onClick={() => vote(leader["id"], setWait)}
                     disabled={!isTimeRunning || (rightToVote && voted)}
                 >
                     Vote
@@ -25,7 +25,12 @@ const Voting = ({ isTimeRunning }) => {
     return (
         <>
             <div className="voting">
-                {cardArray}
+                {isTimeRunning || !voted ? cardArray : (
+                    <div className="voting--leader-card">
+                        <img src={winner["image-src"]} alt="" />
+                        <figcaption style={{ fontSize: "20px", marginLeft: "10px", textAlign: "center" }}>{winner["name"]}</figcaption>
+                    </div>
+                )}
             </div>
         </>
 

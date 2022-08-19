@@ -57,8 +57,8 @@ contract Voting {
         }
     }
 
-    // function to get the winner name
-    function winnerName() public view returns (bytes32 winnerName_) {
-        winnerName_ = proposals[winningProposal()].name;
+    // function to get the winner id
+    function winnerId() public view returns (uint256 winnerId_) {
+        winnerId_ = winningProposal();
     }
 }
