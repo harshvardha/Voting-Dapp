@@ -27,6 +27,7 @@ const Voting = ({ isTimeRunning, setWait }) => {
             <div className="voting">
                 {isTimeRunning || !voted ? cardArray : (
                     <div className="voting--leader-card">
+                        <h1 style={{ textAlign: "center", color: "#404040" }}>Winner</h1>
                         <img src={winner["image-src"]} alt="" />
                         <figcaption style={{ fontSize: "20px", marginLeft: "10px", textAlign: "center" }}>{winner["name"]}</figcaption>
                     </div>
